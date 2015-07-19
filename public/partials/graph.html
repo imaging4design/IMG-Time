@@ -1,0 +1,15 @@
+<div ng-hide="errorMessage">
+	<div class="row" ng-controller="JobListCtrl" ng-show="chartObject.data">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<div class="chart-wrapper">
+				<div google-chart chart="chartObject" class="chart-height"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="errorMessage">
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<span class="chart-error-message"><h2><i class="fa fa-exclamation-triangle"></i> {{errorMessage}}</h2></span>
+	</div>
+</div>

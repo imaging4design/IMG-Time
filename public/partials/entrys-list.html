@@ -1,0 +1,156 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-two">
+			<h2><span class="bold">{{job.client.clientName}}</span>: <br class="visible-xs"><small class="white">{{job.jobdescription}}</small></h2>
+			<a href="#/jobs-list/{{job.client.id}}" class="btn btn-md btn-danger"><i class="fa fa-arrow-circle-left"></i> Back to Jobs</a>
+			<button class="btn btn-md btn-danger" ng-click="showForm = !showForm">Add Entry <i class="fa fa-arrow-circle-down"></i></button>
+		</div><!-- ENDS col -->
+	</div><!-- ENDS row -->
+
+	<form name="entryForm" ng-submit="submitForm(entryForm.$valid)" class="form-horizontal" ng-show="showForm" novalidate>
+
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-four">
+
+				<div class="control-group">
+					<div class="controls">
+						<input type="hidden" id="inputJobID" ng-model="entry.id" class="form-control" placeholder="Job ID"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputEntryDescription"></label>
+					<div class="controls">
+						<input type="text" id="inputEntryDescription"  name="inputEntryDescription" ng-model="entry.jobdescription" class="form-control input-lg" ng-minlength="8" ng-maxlength="110" placeholder="Description of work completed" required/>
+						<p class="red-alert" ng-show="entryForm.inputEntryDescription.$invalid && !entryForm.inputEntryDescription.$pristine">*Min Chars 8 / Max Chars 110</p>
+					</div>
+				</div>	
+
+			</div><!-- ENDS col -->
+
+
+
+			<div class="col-sm-3 col-md-3 col-sm-offset-3 col-md-offset-2 block-four">
+				<div class="control-group">
+					<label class="control-label" for="inputHours"></label>
+					<div class="controls">
+						
+						<!-- Dynamic Select Menu (Hours) - ng-options -->
+						<select ng-model="entry.hours" 
+							ng-options="option.value as option.label for option in hourOptions" class="form-control input-lg">
+						</select>
+
+					</div>
+				</div>
+			</div><!-- ENDS col -->
+
+
+			<div class="col-sm-3 block-four">
+				<div class="control-group">
+					<label class="control-label" for="inputMinutes"></label>
+					<div class="controls">
+						<!-- Dynamic Select Menu (Minutes) - ng-options -->
+						<select ng-model="entry.minutes" 
+							ng-options="option.value as option.label for option in minuteOptions" class="form-control input-lg">
+						</select>
+					</div>
+				</div>
+			</div><!-- ENDS col -->
+
+
+			<div class="col-md-4 col-sm-3 block-four">
+				<div class="control-group">
+					<label class="control-label" for="inputMiscCosts"></label>
+					<div class="controls">
+						<input type="text" id="inputMiscCosts" ng-model="entry.misc_costs" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div><!-- ENDS col -->
+			
+		</div><!-- ENDS row -->
+
+
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-four">
+				<div class="control-group">
+					<div class="controls btn-group">
+						<!-- entrys-detail.html: -->
+						<a ng-click="cancel()" class="btn btn-md btn-danger"><i class="fa fa-times"></i> Cancel</a>
+						<button ng-click="createNewEntry()" id="createNew" class="btn btn-md btn-info" ng-disabled="entryForm.$invalid"><i class="fa fa-check" ng-hide="loading"></i><i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i> Add Entry </button>
+						
+						<br><br>
+					</div>
+				</div>
+			</div><!-- ENDS col -->
+		</div><!-- ENDS row -->
+		
+		<br>
+
+
+	</form><!-- ENDS form -->
+
+
+
+
+
+	
+
+	<div class="row">
+
+		<div class="col-sm-4 col-sm-offset-3 col-md-offset-2 block-zero">
+			<br>
+			<input type="text" ng-model="searchName" class="form-control input-lg" placeholder="Search">
+			<br>
+			<div class="controls btn-group">
+				<a href="pdf/{{job.id}}" class="btn btn-default btn-md btn-danger"><i class="fa fa-file-text"></i> Create PDF</a>
+				<a href="#/jobs-detail/{{job.id}}/edit/{{job.client.id}}" class="btn btn-md btn-info"><i class="fa fa-pencil-square-o"></i> Edit Job</a>
+			</div>
+		</div>
+		
+	</div>
+
+	<br>
+
+	<div class="row entrys-list">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-zero">
+
+			
+
+
+			<table class="table table-condensed table-hover">
+				<thead>
+				<tr>
+					<th><a href="" ng-click="predicate = 'date'; reverse=false">Date <i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'date'; reverse=true"> <i class="fa fa-arrow-circle-up green"></i></a></th>
+					<th><a href="" ng-click="predicate = 'jobdescription'; reverse=false">Description <i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'jobdescription'; reverse=true"> <i class="fa fa-arrow-circle-up green"></i></a></th>
+					<th><span class="pull-right hidden-xs">Total Time</span></th>
+					<th><span class="pull-right hidden-xs">Misc Costs</span></th>
+					<th><span class="pull-right">Edit</span></th>
+					<th><span class="pull-right hidden-xs">Delete</span></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="entry in entrys | filter: searchName | orderBy:predicate:reverse | limitTo: 2000">
+					<td><p>{{ entry.date | date: 'mediumDate' }}</p></td>
+					<td><p>{{ entry.jobdescription }}</p></td>
+					<td><p class="pull-right hidden-xs">{{ addNums( entry.hours, entry.minutes)|number: 2 }}</p></td>
+					<td><p class="pull-right hidden-xs">{{ entry.misc_costs|currency }}</p></td>
+					<td><a ng-click="editEntry(entry.id)" class="btn btn-sm btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a></td>
+					<td><a ng-click="deleteJob(entry)" class="btn btn-sm btn-danger pull-right hidden-xs"><i class="fa fa-times"></i> Delete</a></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<p>
+				<span class="total-time">Hours: <strong>{{entrys | totalTime:'hours' + total:'minutes'}}</strong></span><span class="text-muted"> @{{job.client.charge_rate|currency}}/hr</span><br>
+				<span class="total-cost">Misc Costs: <strong>{{ entrys | miscCost:'misc_costs' | currency }}</strong></span><br>
+				<span class="total-cost">Total (excl GST): <strong>{{entrys | totalCost:'hours' + totalCost:'minutes' : job.client.charge_rate + totalCost:'misc_costs' | currency}}</strong></span>
+			</p>
+			
+		</div><!-- ENDS col -->
+	</div><!-- ENDS row -->
+</div><!-- ENDS container-fluid -->

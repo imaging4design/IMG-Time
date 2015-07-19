@@ -1,0 +1,124 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-two">
+			<h2><i class="fa fa-user"></i> Edit Client</h2>
+		</div>
+	</div>
+
+	<br>
+
+	<form novalidate="novalidate" class="form-horizontal">
+
+		<div class="row">
+
+			<!-- CLIENT NAME -->
+			<div class="col-sm-4 col-sm-offset-3 col-md-offset-2 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputName">Client: ({{client.id}})</label>
+					<div class="controls">
+						<input type="text" id="inputName" ng-model="client.clientName" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+
+			<!-- EMAIL -->
+			<div class="col-sm-4 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">Email:</label>
+					<div class="controls">
+						<input type="text" id="inputEmail" ng-model="client.clientEmail" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+		</div><!-- ENDS row -->
+
+
+		<div class="row">
+
+			<!-- ADDRESS 1 -->
+			<div class="col-sm-4 col-sm-offset-3 col-md-offset-2 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputAddress01">Address Line 1:</label>
+					<div class="controls">
+						<input type="text" id="inputAddress01" ng-model="client.address01" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+
+			<!-- ADDRESS 2 -->
+			<div class="col-sm-4 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputAddress02">Address Line 2:</label>
+					<div class="controls">
+						<input type="text" id="inputAddress02" ng-model="client.address02" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+		</div><!-- ENDS row -->
+
+
+
+		<div class="row">
+
+			<!-- ADDRESS 3 -->
+			<div class="col-sm-4 col-sm-offset-3 col-md-offset-2 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputAddress03">Address Line 3:</label>
+					<div class="controls">
+						<input type="text" id="inputAddress03" ng-model="client.address03" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+
+			<!-- ADDRESS 4 -->
+			<div class="col-sm-4 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputAddress04">Address Line 4:</label>
+					<div class="controls">
+						<input type="text" id="inputAddress04" ng-model="client.address04" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+		</div><!-- ENDS row -->
+
+
+
+		<div class="row">
+
+			<!-- CHARGE RATE -->
+			<div class="col-sm-4 col-sm-offset-3 col-md-offset-2 block-zero">
+				<div class="control-group">
+					<label class="control-label" for="inputChargeRate">Charge Rate:</label>
+					<div class="controls">
+						<input type="text" id="inputChargeRate" ng-model="client.charge_rate" class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+
+			<!-- SUBMIT BUTTON -->
+			<div class="col-sm-4 block-zero">
+				<div class="control-group">
+					
+					<label class="control-label" for="inputChargeRate">&nbsp;</label><br>
+					<div class="controls btn-group">
+						<!-- client-detail.html: -->
+						<a ng-click="cancel()" class="btn btn-md btn-danger"><i class="fa fa-times"></i> Cancel</a>
+						<a ng-click="updateClient()" class="btn btn-md btn-info"><i class="fa fa-check"></i> Update</a>
+					</div>
+				</div>
+			</div>
+
+		</div><!-- ENDS row -->
+
+
+		
+
+		
+	</form>
+
+</div><!-- ENDS container-fluid -->

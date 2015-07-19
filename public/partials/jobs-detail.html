@@ -1,0 +1,138 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-two">
+			<h2><i class="fa fa-paper-plane"></i> Edit Job</h2>
+		</div>
+	</div>
+
+	<br>
+
+	<form novalidate="novalidate" class="form-horizontal">
+
+		<!-- FOR JOB DESCRIPTION -->
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-zero">
+
+				<div class="control-group">
+					<div class="controls">
+						<input type="hidden" id="inputClient_id" ng-model="jobs.client_id"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputJobdescription">Job Description:</label>
+					<div class="controls">
+						<input type="text" id="inputJobdescription" ng-model="jobs.jobdescription" class="form-control input-lg"/>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<!-- FOR DATE / HOURS / MINUTES / CLOSED -->
+		<div class="row">
+			<div class="col-sm-2 col-sm-offset-3 col-md-offset-2 block-zero">
+
+				<!-- DATE -->
+				<div class="control-group">
+					<label class="control-label" for="inputDate">Date:</label>
+					<div class="controls">
+						<input type="text" ng-model="jobs.date" id="datepicker" class="form-control input-lg"/>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-2 block-zero">
+
+				<!-- HOURS -->
+				<div class="control-group">
+					<label class="control-label" for="inputHours">Hours:</label>
+					<div class="controls">
+
+						<!-- Pre-populate drop down with current 'Minute' -->
+						<select ng-model="jobs.hours" class="form-control input-lg">
+							<option ng-repeat="hour in hourOptions" value="{{hour.value}}" ng-selected="jobs.hours == hour.value">{{hour.label}}</option>
+						</select>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-2 block-zero">
+
+				<!-- MINUTES -->
+				<div class="control-group">
+					<label class="control-label" for="inputMinutes">Minutes:</label>
+					<div class="controls">
+
+						<!-- Pre-populate drop down with current 'Minute' -->
+						<select ng-model="jobs.minutes" class="form-control input-lg">
+							<option ng-repeat="minute in minuteOptions" value="{{minute.value}}" ng-selected="jobs.minutes == minute.value">{{minute.label}}</option>
+						</select>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-2 block-zero">
+
+				<!-- CLOSED -->
+				<div class="control-group">
+					<label class="control-label" for="inoutClosed">Status:</label>
+					<div class="controls">
+
+						<!-- Pre-populate drop down with current 'Minute' -->
+						<select ng-model="jobs.closed" class="form-control input-lg">
+							<option ng-repeat="jobStatus in jobStatusOptions" value="{{jobStatus.value}}" ng-selected="jobs.closed == jobStatus.value">{{jobStatus.label}}</option>
+						</select>
+
+					</div>
+				</div>
+
+			</div><!-- ENDS col -->
+
+		</div><!-- ENDS row -->
+
+		<br>
+
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3 col-md-offset-2 block-zero">
+				
+				<div class="control-group">
+					<div class="controls btn-group">
+						
+						<!-- jobs-detail.html: -->
+						<a ng-click="cancel()" class="btn btn-md btn-danger"><i class="fa fa-times"></i> Cancel</a>
+						<a ng-click="updateJob()" class="btn btn-md btn-info"><i class="fa fa-check"></i> Update Job</a>
+
+					</div>
+				</div>
+
+			</div><!-- ENDS col -->
+		</div><!-- ENDS row -->
+
+		
+		
+	</form>
+
+</div><!-- ENDS container-fluid -->
+
+
+<script>
+	$('#datepicker').datepicker({
+		format: "yyyy-mm-dd",
+		minViewMode: 0,
+		autoclose: true,
+		todayHighlight: true
+	});
+</script>

@@ -1,0 +1,55 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-two">
+
+			<div class="row">
+				<div class="col-md-4">
+					<h2><i class="fa fa-user"></i> Client List {{message}}</h2>
+					<input type="text" ng-model="searchName" class="form-control input-lg" placeholder="Search">
+				</div>
+			</div><!-- ENDS row -->
+		
+		</div><!-- ENDS col -->
+
+	</div><!-- ENDS row -->
+
+	
+
+	<div class="row clients-list">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-three">
+
+			
+			<div class="center">
+				<div class="spinner" ng-show="loading"></div><!-- Loading spinner .... -->
+			</div>
+
+			<table class="table table-condensed table-hover">
+				<thead>
+				<tr>
+					<th>Client <a href="" ng-click="predicate = 'clientName'; reverse=false"><i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'clientName'; reverse=true"><i class="fa fa-arrow-circle-up green"></i></a></th>
+					<th class="hidden-xs">Email <a href="" ng-click="predicate = 'clientEmail'; reverse=false"><i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'clientEmail'; reverse=true"><i class="fa fa-arrow-circle-up green"></i></a></th>
+					<th class="hidden-xs"><span class="pull-right">Rate <a href="" ng-click="predicate = 'charge_rate'; reverse=true"><i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'charge_rate'; reverse=false"><i class="fa fa-arrow-circle-up green"></i></a></span></th>
+					<th><span class="pull-right">Edit</span></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="client in clients | filter: searchName | orderBy:predicate:reverse | limitTo: 2000" class="repeater">
+					<td><p><a href="#/jobs-list/{{client.id}}">{{ client.clientName }}</a></p></td>
+					<td class="hidden-xs"><p>{{ client.clientEmail }}</p></td>
+					<td class="hidden-xs"><p class="pull-right">{{ client.charge_rate|currency }}</p></td>
+					<td><a ng-click="editClient(client.id)" class="btn btn-sm btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a></td>
+
+					
+				</tr>
+				</tbody>
+			</table>
+			
+		</div><!-- ENDS col -->
+
+	</div><!-- ENDS row -->
+</div><!-- ENDS container-fluid -->

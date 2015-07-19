@@ -1,0 +1,175 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-two">
+			<h2><i class="fa fa-paper-plane"></i> Add New Job - <strong>{{client.clientName}}</strong></h2>
+			<a href="#/client-list" class="btn btn-md btn-danger"><i class="fa fa-arrow-circle-left"></i> Back to Clients</a>
+			<button class="btn btn-md btn-danger" ng-click="showForm = !showForm">Add Job <i class="fa fa-arrow-circle-down"></i></button>
+		</div>
+	</div>
+
+	<form name="jobForm" ng-submit="submitForm(jobForm.$valid)" class="form-horizontal" ng-show="showForm" novalidate>
+
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-four">
+
+				<div class="control-group">
+					<div class="controls">
+						<input type="hidden" id="inputClientID" ng-model="job.id" class="form-control input-lg" placeholder="Client ID"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputJobDescription"></label>
+					<div class="controls">
+						<input type="text" id="inputJobDescription" name="inputJobDescription" ng-model="job.jobdescription" class="form-control input-lg" placeholder="Job Description" ng-minlength="8" required/>
+						<p ng-show="jobForm.inputJobDescription.$invalid && !jobForm.inputJobDescription.$pristine">*Job description is too short</p>
+					</div>
+				</div>		
+
+			</div><!-- ENDS col -->
+		
+
+			<div class="col-sm-3 col-md-3 col-sm-offset-3 col-md-offset-2 block-four">
+				<div class="control-group">
+					<label class="control-label" for="inputHours"></label>
+					<div class="controls">
+						<!-- Dynamic Select Menu (Hours) - ng-options -->
+						<select ng-model="job.hours" 
+							ng-options="option.value as option.label for option in hourOptions" class="form-control input-lg">
+						</select>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-sm-3 block-four">
+				<div class="control-group">
+					<label class="control-label" for="inputMinutes"></label>
+					<div class="controls">
+						<!-- Dynamic Select Menu (Minutes) - ng-options -->
+						<select ng-model="job.minutes" 
+							ng-options="option.value as option.label for option in minuteOptions" class="form-control input-lg">
+						</select>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-md-4 col-sm-3 block-four">
+				<div class="control-group">
+					<label class="control-label" for="inputMiscCosts"></label>
+					<div class="controls">
+						<input type="text" id="inputMiscCosts" ng-model="entry.misc_costs" class="form-control input-lg" placeholder="Misc Costs (0.00)"/>
+					</div>
+				</div>
+			</div><!-- ENDS col -->
+
+		</div><!-- ENDS row -->
+
+		
+
+
+		<div class="row">
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-four">
+
+				<div class="control-group controls btn-group">
+					<!-- Back button via Directive (attribute :: back-button)-->
+					<button back-button class="btn btn-md btn-danger"><i class="fa fa-times"></i> Cancel</button>
+					<button ng-click="createNewJob()" id="createNew" class="btn btn-md btn-info" ng-disabled="jobForm.$invalid"><i class="fa fa-check" ng-hide="loading"></i><i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i> Add Job </button>
+					
+					<br><br>
+				</div>
+
+			</div><!-- ENDS col -->
+		</div><!-- ENDS row -->
+
+	</form><!-- ENDS form -->
+
+
+
+	<div class="row">
+
+		<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-zero">
+			<br>
+			<h3><strong>Display Graph</strong></h3>
+
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2007, chartType)">2007</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2008, chartType)">2008</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2009, chartType)">2009</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2010, chartType)">2010</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2011, chartType)">2011</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2012, chartType)">2012</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2013, chartType)">2013</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2014, chartType)">2014</button>
+			<button class="btn btn-md btn-info" ng-click="showGraph(client.id, 2015, chartType)">2015</button>
+
+			<!-- <input type="radio" ng-model="stats.chartType" value="{{chart.value}}" name="chart" ng-change="test()" ng-checked="stats.chart == chart.value"/>  {{ chart.label }} -->
+
+			<div class="control-group controls btn-group pull-right">
+				<button class="btn btn-md btn-info" ng-click="showGraph(clientId, theYear, 'LineChart')" alt="Submit"><i class="fa fa-line-chart"></i></button>
+				<button class="btn btn-md btn-info" ng-click="showGraph(clientId, theYear, 'AreaChart')"><i class="fa fa-area-chart"></i></button>
+				<button class="btn btn-md btn-info" ng-click="showGraph(clientId, theYear, 'ColumnChart')"><i class="fa fa-bar-chart"></i></button>
+				<button class="btn btn-md btn-info" ng-click="showGraph(clientId, theYear, 'PieChart')"><i class="fa fa-pie-chart"></i></button>
+			</div>
+
+		</div><!-- ENDS col -->
+
+	</div><!-- ENDS row -->
+
+
+
+
+	<!-- Include Google Charts -->
+	<div ng-include="'partials/graph.html'"></div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-3 col-md-offset-2 block-zero">
+			<input type="text" ng-model="searchName" class="form-control input-lg" placeholder="Search">
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row jobs-list">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-zero">
+
+			<table class="table table-condensed table-hover">
+				<thead>
+				<tr>
+					<th><a href="" ng-click="predicate = 'id'; reverse=false">Job <i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'id'; reverse=true"> <i class="fa fa-arrow-circle-up green"></i></a></th>
+					<th><a href="" ng-click="predicate = 'jobdescription'; reverse=false">Description <i class="fa fa-arrow-circle-down green"></i></a> <a href="" ng-click="predicate = 'jobdescription'; reverse=true"> <i class="fa fa-arrow-circle-up green"></i></a></th>
+					<th><span class="pull-right hidden-xs">Date</span></th>
+					<th><span class="pull-right hidden-xs">Quoted</span></th>
+					<th><span class="pull-right hidden-xs">Status</span></th>
+					<th><span class="pull-right">Edit</span></th>
+					<th><span class="pull-right hidden-xs">Delete</span></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="job in jobs | filter: searchName | orderBy:predicate:reverse | limitTo: 2000">
+					<td><a href="#/entrys-list/{{job.id}}" class="btn btn-sm btn-info"><i class="fa fa-search"></i> {{job.id}}</a></td>
+					<td><p>{{ job.jobdescription }}</p></td>
+					<td><p class="pull-right hidden-xs">{{ job.date | date: 'mediumDate' }}</p></td>
+					<td><p class="pull-right hidden-xs">{{ addNums(job.hours, job.minutes)|number: 2 }}</p></td>
+					<td><p class="pull-right hidden-xs">{{ status(job.closed)|titlecase }}</p></td>
+					
+					<td><a ng-click="editJob(job.id)" class="btn btn-sm btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a></td>
+					<td><a ng-click="deleteJob(job)" class="btn btn-sm btn-danger pull-right hidden-xs"><i class="fa fa-times"></i> Delete</a></td>
+				</tr>
+				</tbody>
+			</table>
+
+			
+
+			
+		</div><!-- ENDS col -->
+	</div><!-- ENDS row -->
+</div><!-- ENDS container-fluid -->

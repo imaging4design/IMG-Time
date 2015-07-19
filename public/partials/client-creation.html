@@ -1,0 +1,94 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-two">
+			<h2><i class="fa fa-male"></i> Add Client</h2>
+			<p>*Must include Client Name, Client Email and Rate.</p>
+		</div>
+	</div>
+	
+
+	<div class="row">
+
+		<div class="col-lg-6 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-3 block-zero">
+
+			<form name="clientForm" ng-submit="submitForm(clientForm.$valid)" class="form-horizontal" novalidate>
+
+			
+				<div class="control-group">
+					<label class="control-label" for="inputName"></label>
+					<div class="controls">
+						<input type="text" id="inputName" name="inputName" ng-model="client.clientName" class="form-control input-lg" placeholder="Client Name" ng-minlength="8" required/>
+						<p ng-show="clientForm.inputName.$invalid && !clientForm.inputName.$pristine">*Client Name is too short</p>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputEmail"></label>
+					<div class="controls">
+						<input type="email" id="email" name="email" ng-model="client.clientEmail" class="form-control input-lg" placeholder="Client Email" required/>
+						<p ng-show="clientForm.email.$invalid && !clientForm.email.$pristine">*Not a vailid email</p>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputAddress01"></label>
+					<div class="controls">
+						<input type="text" id="inputAddress01" ng-model="client.address01" class="form-control input-lg" placeholder="Address Line 1"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputAddress02"></label>
+					<div class="controls">
+						<input type="text" id="inputAddress02" ng-model="client.address02" class="form-control input-lg" placeholder="Address Line 2"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputAddress03"></label>
+					<div class="controls">
+						<input type="text" id="inputAddress03" ng-model="client.address03" class="form-control input-lg" placeholder="Address Line 3"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputAddress04"></label>
+					<div class="controls">
+						<input type="text" id="inputAddress04" ng-model="client.address04" class="form-control input-lg" placeholder="Address Line 4"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputChargeRate"></label>
+					<div class="controls">
+						<input type="number" id="inputChargeRate" name="charge_rate" ng-model="client.charge_rate" class="form-control input-lg" placeholder="Hourly Rate $" ng-minlength="2" required/>
+						<p ng-show="clientForm.charge_rate.$invalid && !clientForm.charge_rate.$pristine">*Not a vailid Charge Rate - number required.</p>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="control-group">
+					<div class="controls btn-group">
+
+						<!-- Back button via Directive (attribute :: back-button)-->
+						<button back-button class="btn btn-md btn-danger"><i class="fa fa-times"></i> Cancel</button>
+						<!-- client-creation.html: -->
+						<button ng-click="createNewClient()" id="createNew" class="btn btn-md btn-info" ng-disabled="clientForm.$invalid">Add Client <i class="fa fa-check"></i></button>
+
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+		
+
+	</div>
+
+</div><!-- ENDS container-fluid -->

@@ -1,0 +1,120 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-two">
+			<h2><i class="fa fa-paper-plane"></i> Edit Entry</h2>
+		</div>
+	</div>
+
+	<br>
+
+	<form novalidate="novalidate" class="form-horizontal">
+
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-zero">
+
+				<div class="control-group">
+					<!-- <label class="control-label" for="inputEntryID">Entry ID: {{ entrys.id }}</label> -->
+					<div class="controls">
+						<input type="hidden" id="inputEntryID" ng-model="entrys.id" class="form-control"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputJobDescription">Job Description:</label>
+					<div class="controls">
+						<input type="text" id="inputJobDescription" ng-model="entrys.jobdescription" class="form-control input-lg"/>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-sm-2 col-sm-offset-3 col-md-offset-2 block-zero">
+
+				<!-- DATE -->
+				<div class="control-group">
+					<label class="control-label" for="inputDate">Date:</label>
+					<div class="controls">
+						<input type="text" id="inputDate" ng-model="entrys.date" datepicker class="form-control input-lg"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-2 block-zero">
+
+				<!-- HOURS -->
+				<div class="control-group">
+					<label class="control-label" for="inputHours">Hours:</label>
+					<div class="controls">
+
+						<!-- Pre-populate drop down with current 'Minute' -->
+						<select ng-model="entrys.hours" class="form-control input-lg">
+							<option ng-repeat="hour in hourOptions" value="{{hour.value}}" ng-selected="entrys.hours == hour.value">{{hour.label}}</option>
+						</select>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-2 block-zero">
+
+				<!-- MINUTES -->
+				<div class="control-group">
+					<label class="control-label" for="inputMinutes">Minutes:</label>
+					<div class="controls">
+
+						<!-- Pre-populate drop down with current 'Minute' -->
+						<select ng-model="entrys.minutes" class="form-control input-lg">
+							<option ng-repeat="minute in minuteOptions" value="{{minute.value}}" ng-selected="entrys.minutes == minute.value">{{minute.label}}</option>
+						</select>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm-2 block-zero">
+
+				<!-- MISC COSTS -->
+				<div class="control-group">
+					<label class="control-label" for="inputMiscCosts">Costs:</label>
+					<div class="controls">
+						<input type="text" id="inputMiscCosts" ng-model="entrys.misc_costs" class="form-control input-lg"/>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<br>
+		
+
+		<div class="row">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-zero">
+				<div class="control-group">
+					<div class="controls btn-group">
+						
+						<!-- entrys-detail.html: -->
+						<a ng-click="cancel()" class="btn btn-md btn-danger "><i class="fa fa-times"></i> Cancel</a>
+						<a ng-click="updateEntry()" class="btn btn-md btn-info"><i class="fa fa-check"></i> Update</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+	</form>
+
+</div><!-- ENDS container-fluid -->

@@ -1,0 +1,87 @@
+<div class="col-sm-3 col-md-2 sidebar" ng-controller="menuCtrl">
+
+	<a ng-href="#/jobs-live"><img src="img/LD_logo.png"></a>
+
+	<ul class="nav nav-sidebar">
+		<li class="sidebar-cat-header">CUSTOMER</li>
+
+		<!-- ng-repeat Menu Items -->
+		<li ng-repeat="menuItem in menuItems" ng-class="{active: isActive(menuItem)}">
+			<a ng-href="#{{menuItem.url}}">{{menuItem.name}} &nbsp;<span ng-bind-html="menuItem.icon"></span></a>
+		</li>
+	</ul>
+
+
+	
+
+
+
+		
+	<!-- Show stats of hours and revenue for month -->
+	<div class="stats-holder" ng-show="totalTime">
+		<div class="stats-1 noselect">
+			<p ng-click="toggle = !toggle" class="hours-dollars">Hours/Rev:</p>
+			<h3 class="highlight2" ng-hide="toggle"><strong>{{totalTime}}&nbsp;<small class="hrs">hrs</small></strong></h3>
+			<h3 class="highlight2" ng-show="toggle"><strong>${{totalRevenue | number:2}}</strong></h3>
+		</div>
+		<div class="stats-2 noselect">
+			<p>Jobs:</p>
+			<h3 class="highlight2"><strong>{{numLiveJobs}}</strong></h3>
+		</div>
+	</div>
+
+	<div class="stats-holder" ng-show="numClients">
+		<div class="stats-3 noselect">
+			<p>No. Clients:</p>
+			<h3 class="highlight2"><strong>{{numClients}}</strong></h3>
+		</div>
+	</div>
+
+
+
+	
+	<!-- START JAVASCRIPT STOPWATCH -->
+
+	<div id="clock1"></div>
+
+	<script type="text/javascript">
+		$(function() {
+			$('#clock1').stopwatch();
+		});
+	</script>
+
+	<!-- STOP JAVASCRIPT STOPWATCH -->
+	
+
+	
+	
+
+	<p class="copyright"><small>©Copyright Imaging4Design 2014.</small></p>
+
+</div><!-- ENDS col -->
+
+
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main hidden-xs">
+
+	<div class="block-one">
+
+		<div class="row placeholders">
+			<div class="col-lg-6 col-sm-6">
+				<h1><i class="fa fa-tachometer"></i> Dashboard</h1>
+				<p>{{todaysDate}}</p>
+			</div>
+			<div class="col-lg-2 col-sm-2 placeholder">
+				<a ng-href="#/jobs-live"><div><i class="fa fa-paper-plane giant-icon"></i><h4>LIVE JOBS</h4></div></a>
+			</div>
+			<div class="col-lg-2 col-sm-2 placeholder">
+				<a ng-href="#/client-list"><div><i class="fa fa-user giant-icon"></i><h4>CLIENT LIST</h4></div></a>
+			</div>
+			<div class="col-lg-2 col-sm-2 placeholder">
+				<a ng-href="#/client-creation"><div><i class="fa fa-male giant-icon"></i><h4>ADD CLIENT</h4></div></a>
+			</div>
+		</div>
+
+	</div><!-- ENDS block-one -->
+
+</div><!-- ENDS col -->

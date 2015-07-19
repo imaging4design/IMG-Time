@@ -1,0 +1,125 @@
+<!-- Include partials -->
+<div ng-include="'partials/navbartop.html'"></div>
+<div ng-include="'partials/sidebar.html'"></div>
+
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-two">
+
+			<div class="row">
+				<div class="col-md-4">
+					<h2><i class="fa fa-paper-plane"></i> Live Jobs</h2>
+					<input type="text" ng-model="searchName" class="form-control input-lg" placeholder="Search">
+				</div>
+			</div><!-- ENDS row-->
+
+		</div><!-- ENDS col -->
+
+	</div><!-- ENDS row -->
+
+
+
+	<div class="row">
+
+		<!-- Show stats of hours and revenue for month -->
+		<form class="form-inline" novalidate="novalidate" class="form-horizontal">
+
+			<div class="col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 block-zero">
+
+				<!-- Show stats of hours and revenue for month -->
+				<div class="stats-large noselect">
+					
+					<h3>
+						<input type="text" id="datepicker" class="datepicker form-control input-md" ng-model="job.dateRange" data-provide="datepicker" ng-change="selectDate(job.dateRange)" placeholder="Month/Year"> &nbsp;
+						<strong class="highlight2">{{numLiveJobs}}</strong> Jobs: &nbsp;
+						<strong class="highlight2" ng-click="toggle = !toggle"><span ng-hide="toggle"><i class="fa fa-clock-o"></i> {{totalTime}}</span></strong>
+						<strong class="highlight2" ng-click="toggle = !toggle"><span ng-show="toggle">${{totalRevenue | number:2}}</span></strong> &nbsp;
+						<span class="btn-chart-hide" ng-click="toggleGraph = !toggleGraph"><i class="fa fa-chevron-down" ng-show="toggleGraph"></i><i class="fa fa-chevron-up" ng-hide="toggleGraph"></i></span>
+					</h3>
+					
+				</div><!-- ENDS stats-large -->
+
+			</div><!-- ENDS col -->
+
+		</form><!-- ENDS form -->
+
+	</div><!-- ENDS row -->
+
+
+	
+
+	<!-- INCLUDE GOOGLE CHARTS API -->
+	<div ng-include="'partials/graph2.html'"></div>
+		
+
+
+
+
+	<div class="row jobs-list">
+
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 block-three">
+
+			<div class="center">
+				<div class="spinner" ng-show="loading"></div><!-- Loading spinner .... -->
+			</div>
+
+			<p ng-show="message">{{message}}</p>
+			
+			
+
+			<table class="table table-condensed table-hover">
+			<thead>
+				<tr>
+					<th class="hidden-xs">Date</th>
+					<th>Client</th>
+					<th>Job</th>
+					<th class="hidden-xs"><span class="pull-right">Quoted</span></th>
+					<th><span class="pull-right"><i class="fa fa-pencil"></i> Edit</span></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="liveJob in liveJobs | filter: searchName | orderBy: 'client.clientName' "  ng-class="{ 'muted' : liveJob.closed == 1 }">
+					<td class="hidden-xs"><p>{{ liveJob.date | date: 'mediumDate' }} </p></td>
+					<td><p><a href="#/entrys-list/{{liveJob.id}}"> <i class="fa fa-check-circle"></i> {{ liveJob.client.clientName }}</a></p></td>
+					<td><p>{{ liveJob.jobdescription }}</p></td>
+					<td class="hidden-xs"><p class="pull-right">{{ liveJob.hours--liveJob.minutes|number: 2 }}</p></td>
+					<td><a href="#/jobs-detail/{{liveJob.id}}/edit/{{liveJob.client.id}}" class="btn btn-sm btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a></td>
+				</tr>
+			</tbody>
+			</table>
+			
+			
+
+
+		</div><!-- ENDS col -->
+	</div><!-- ENDS row -->
+</div><!-- ENDS container-fluid -->
+
+
+<script >
+
+	$('.datepicker').datepicker({
+		format: "mm/yyyy",
+		minViewMode: 1,
+		autoclose: true,
+		todayHighlight: true
+	});
+
+	// Show/Hide graph open close icons
+	var icon = $('.fa-chevron-up');
+	icon.hide();
+
+	$("#datepicker").on('change', function() {
+		icon.show();
+	});
+
+	$('.btn-chart-hide').on('click', function(){
+		$('.chart-wrapper').toggleClass('chart-hide');
+	});
+
+	
+
+</script>
+
